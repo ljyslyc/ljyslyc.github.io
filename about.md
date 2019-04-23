@@ -1,7 +1,7 @@
 ---
 layout: page
-title: 关于吕毅
+title: 关于佳迎
 permalink: /about/
 ---
 
-![吕毅](/assets/img/avatar.png)
+![佳迎](/assets/img/avatar.png)
