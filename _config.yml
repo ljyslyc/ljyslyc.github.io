@@ -1,8 +1,8 @@
 # Basic Site Information
-title: walterlv
-author: walterlv
-post_author: 吕毅
-description: 吕毅的博客 walterlv's blog
+title: ljyslyc
+author: ljyslyc
+post_author: 佳迎哥哥
+description: 佳迎哥哥 ljyslyc's blog
 mail: walter.lv@qq.com
 about: .NET and Windows Developer, Microsoft MVP
 
@@ -24,7 +24,7 @@ kramdown:
 
 # Site Urls
 baseurl: ""
-url: "https://blog.walterlv.com"
+url: "https://blog.ljyslyc.com"
 links:
   - title: 博客
     url: /
@@ -47,13 +47,11 @@ links-light:
 # Social Accounts
 github:
   username: walterlv
-  link: https://github.com/walterlv
+  link: https://github.com/ljyslyc
 facebook:
   username: Xblero
 twitter:
   username: _lvyi_
-stackoverflow:
-  link: https://stackoverflow.com/users/6233938/walterlv
 
 # Visit Analysis
 analytics:
@@ -61,12 +59,12 @@ analytics:
   cnzz: cnzz_stat_icon_1264408226
 disqus:
   name: walterlv
-  url: https://walterlv.com
+  url: https://ljyslyc.com
 gitment:
-  owner: walterlv
+  owner: ljyslyc
   client_id: 9a8b44a07f269679e9b5
   client_secret: 3412cef75373074fd43b62462a7adef7ad1e2127
-  repo: walterlv.github.io
+  repo: ljyslyc.github.io
 leancloud:
   appid: 2NpLNUTfjU4ey5wOeWPPiXXL-gzGzoHsz
   appkey: OeA2qCtXi7ifv96UbMQ4J1kn
@@ -85,14 +83,14 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      author: "吕毅"
+      author: "佳迎哥哥"
       permalink: "/post/:title.html"
   - scope:
       path: "_articles"
       type: "articles"
     values:
       layout: "post"
-      author: "吕毅"
+      author: "佳迎哥哥"
       permalink: "/article/:title.html"
 
 # Plugins
