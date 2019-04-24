@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "判断两个数组是否相似 (arraysSimilar)"
-date:   2015-04-06 15:14:54
+date:   2018-04-06 15:14:54
 categories: JavaScript
 tags: JavaScript Array 算法 慕课网
 ---
@@ -121,14 +121,6 @@ var result = function() {
 }();
 document.write("判定结果:" + (result ? "通过" : "不通过"));
 ```
-
----
-
-## 解答
-
-各位读者在看解答前也可以自己考虑一下，看看咱们的想法是否一致，期待您在本文的留言。
-
----
 
 ### 思路
 
@@ -277,11 +269,3 @@ function sameLengthArraysSimilar(arr1,arr2) {
     }
 }
 ```
-
-## 总结
-
-* 上述代码完美的跑完所有的测试用例，读者 [点击这里查看结果](http://gaohaoyang.github.io/javascript-test/arraysSimilar/)，并且可以按 `f12` 看 Console 信息， 里面有代码的执行过程。  
-* 当然你也可以复制本文的 JavaScript 代码，在 [慕课网的习题](http://imooc.com/code/5760) 下跑一下，也可以看到 `判定结果:通过` 的结果
-* 完整源代码在我的 GitHub [javascript-test/arraysSimilar/](https://github.com/Gaohaoyang/javascript-test/tree/master/arraysSimilar) 仓库中   
-* 其实我的代码逻辑并不复杂，有点**空间换时间**的感觉，执行效率应该是较高的。没有用 JavaScript 封装的任何函数，完全是自己写的。其实代码除去 `console.log()` 也并没有多少行。
-* 各位读者有什么好的想法欢迎留言交流！
