@@ -11,7 +11,7 @@
 
   /**
      * 内容JSON
-     */
+     
   var demoContent = [
     {
       demo_link: 'https://codepen.io/haoyang/pen/jrvrQq',
@@ -138,7 +138,7 @@
   contentInit(demoContent) //内容初始化
   waitImgsLoad() //等待图片加载，并执行布局初始化
 }());
-
+*/
 /**
  * 内容初始化
  * @return {[type]} [description]
