@@ -14,7 +14,6 @@ With the escalation of jekyll version, but I also want to reconstruct my older b
 
 ## Content
 
-* [Preview](#preview)
 * [Page Details](#page-details)
     * [Home](#home)
     * [Archives](#archives)
@@ -44,16 +43,6 @@ With the escalation of jekyll version, but I also want to reconstruct my older b
 * [Donate](#donate)
 * [Update Log](#update-log)
 * [License](#license)
-
-## Preview
-
-First of all, let's see previews.
-
-Index Page
-![index](http://ww3.sinaimg.cn/large/7011d6cfjw1f3bdli86awj211k0oyqen.jpg)
-
-Post Page
-![post](http://ww4.sinaimg.cn/large/7011d6cfjw1f3bdmzb9v6j210p0j7gwn.jpg)
 
 ## Page Details
 
@@ -106,11 +95,8 @@ The post contents is fixed at the right side while page is scrolling. There will
 
 While the jekyll is update to 3.x.x, you can use github flavored markdown to write code.
 
-More info to see [syntax-highlighter-changed](https://jekyllrb.com/docs/upgrading/2-to-3/#syntax-highlighter-changed).
-
 ### Light Shadow
 
-![light](http://ww3.sinaimg.cn/large/7011d6cfjw1f3be6y4vp3j209i02rweg.jpg)
 
 You can see the white shadow on the current item in the navbar. I call this light shadow.
 
@@ -118,9 +104,7 @@ You can see the white shadow on the current item in the navbar. I call this ligh
 
 Of course, I have done a very good mobile adaptation.
 
-![mobile](http://ww4.sinaimg.cn/large/7011d6cfjw1f3bebnzxkpj20ah0fzgp4.jpg)
 
-![footer](http://ww3.sinaimg.cn/large/7011d6cfjw1f3bepd8002j20hl02ct95.jpg)
 
 ### Statistical Analysis
 
