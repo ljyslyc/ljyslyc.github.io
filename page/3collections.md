@@ -31,7 +31,7 @@ type: page
 
     用于压缩 png 或 jpg 的在线工具
 
-* [图床 https://sm.ms/](https://sm.ms/)
+* [聚合图床 https://www.superbed.cn/](site.Picture_bed)
 
     有 API 可用。
 
