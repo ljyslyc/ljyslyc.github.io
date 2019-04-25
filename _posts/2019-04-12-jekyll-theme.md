@@ -1,7 +1,8 @@
 ---
 layout: post
 title:  "对这个 jekyll 博客部署"
-date:   2019-04-12 11:40:18 +0800
+date:  添加归档，添加标签，添加分类页面，主页显示文章摘要，代码去除 jQuery 和 BootStrap，优化移动端显示，将所有变量写入配置文件`_config.yml`中等。
+下面列举一些可能遇到的问题。
 categories: jekyll
 tags: jekyll 
 ---

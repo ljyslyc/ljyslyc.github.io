@@ -4,11 +4,13 @@ title: "maven到底是个啥玩意!"
 date: 2019-04-24 15:14:54
 categories: maven
 tags: maven
-excerpt:
+excerpt: 简述maven
 mathjax: true
 ---
+
 * content
 {:toc}
+
 ## maven到底是个啥玩意~
 * 参考博文：[通俗理解maven](http://blog.csdn.net/shuzhe66/article/details/45009175)
 &ensp; 该篇文章篇幅很长，大概的思路如下：maven的介绍，初步认识，获取jar包的三个关键属性:
