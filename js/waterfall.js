@@ -11,7 +11,7 @@
 
   /**
      * 内容JSON
-     
+     */
   var demoContent = [
     {
       demo_link: 'https://codepen.io/haoyang/pen/jrvrQq',
@@ -125,7 +125,8 @@
       title: 'AngularJS UI-router 练习',
       core_tech: 'AngularJS UI-router',
       description: 'UI-router 作为 AngularJS 中路由的扩充，实现了多级路由的效果。使得前端界面跳转更加方便。'
-    }, {
+    }, 
+    {
       demo_link: 'http://gaohaoyang.github.io/test/bootstrap-zhihu/',
       img_link: 'http://7q5cdt.com1.z0.glb.clouddn.com/teach-girlfriend-html-CopyZhihu.jpg',
       code_link: 'https://github.com/Gaohaoyang/test/tree/master/bootstrap-zhihu',
@@ -138,7 +139,7 @@
   contentInit(demoContent) //内容初始化
   waitImgsLoad() //等待图片加载，并执行布局初始化
 }());
-*/
+
 /**
  * 内容初始化
  * @return {[type]} [description]
