@@ -66,7 +66,9 @@ for i from n−1 downto 1 do
 
 下面这个动画就是整个数组 0-19 的随机排序过程
 
-<iframe height='317' scrolling='no' src='//codepen.io/haoyang/embed/jrvrQq/?height=317&theme-id=dark&default-tab=result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/haoyang/pen/jrvrQq/'>Fisher–Yates shuffle</a> by Chuan shi (<a href='http://codepen.io/haoyang'>@haoyang</a>) on <a href='http://codepen.io'>CodePen</a>.
+<iframe height="265" style="width: 100%;" scrolling="no" title="Fisher-Yates" src="//codepen.io/LiuJiaYing/embed/ROqdKv/?height=265&theme-id=0&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/LiuJiaYing/pen/ROqdKv/'>Fisher-Yates</a> by 刘大哥
+  (<a href='https://codepen.io/LiuJiaYing'>@LiuJiaYing</a>) on <a href='https://codepen.io'>CodePen</a>.
 </iframe>
 
 ## JavaScript 代码实现
