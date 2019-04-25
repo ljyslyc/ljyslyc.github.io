@@ -49,12 +49,12 @@ kramdown:
 # port: 1234
 
 #图床地址
-https://www.superbed.cn/
+Picture_bed : https://www.superbed.cn/
 
 # url
 category_dir: category/
 tag_dir: tag/
-Picture_bed : https://www.superbed.cn/
+
 # excerpt
 excerpt_separator: "\n\n\n\n"
 
