@@ -31,9 +31,9 @@ type: page
 
     用于压缩 png 或 jpg 的在线工具
 
-* [聚合图床 https://www.superbed.cn/](site.Picture_bed)
+* [json工具]  (http://www.bejson.com/)
 
-    有 API 可用。
+* [聚合图床] (https://www.superbed.cn/)
 
 * [新浪微博图床 Chrome扩展](https://github.com/Suxiaogang/WeiboPicBed)
 
