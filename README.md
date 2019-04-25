@@ -1,7 +1,6 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/ljyslyc/ljyslyc.github.io.svg)](https://github.com/ljyslyc/ljyslyc.github.io/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/ljyslyc
-/ljyslyc.github.io.svg)](https://github.com/ljyslyc/ljyslyc.github.io/network)
+[![GitHub forks](https://img.shields.io/github/forks/ljyslyc/ljyslyc.github.io.svg)](https://github.com/ljyslyc/ljyslyc.github.io/network)
 [![GitHub issues](https://img.shields.io/github/issues/ljyslyc/ljyslyc.github.io.svg)](https://github.com/ljyslyc/ljyslyc.github.io/issues)
 [![GitHub release](https://img.shields.io/github/release/ljyslyc/ljyslyc.github.io.svg)](https://github.com/ljyslyc/ljyslyc.github.io/releases)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ljyslyc/ljyslyc.github.io/master/LICENSE)
