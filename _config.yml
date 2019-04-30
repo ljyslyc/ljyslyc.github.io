@@ -28,8 +28,9 @@ description_footer: 大学生活的点点滴滴
 # comments
 # two ways to comment, only choose one, and use your own short name
 # 两种评论插件，选一个就好了，使用自己的 short_name
-duoshuo_shortname: #hygblog
-disqus_shortname: ljyslyc
+duoshuo_shortname: #ljyslyc
+disqus_shortname: #ljyslyc
+changyan_shortname: ljyslyc
 
 # statistic analysis 统计代码
 # 百度统计 id，将统计代码替换为自己的百度统计id，即

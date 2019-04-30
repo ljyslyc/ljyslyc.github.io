@@ -44,3 +44,26 @@
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 {% endif %}
+
+{% if site.changyan_shortname %}
+<% if (!index && post.comments){ %>
+    <section >
+      <!--高速版，加载速度快，使用前需测试页面的兼容性-->
+      <div  s></div>
+      <script>
+        (function(){
+          var appid = 'cyud1vDlX',
+            conf = '58bef5210e4d498d63b36fdd0df6f5b4';
+          var doc = document,
+            s = doc.createElement('script'),
+            h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+          s.type = 'text/javascript';
+          s.charset = 'utf-8';
+          s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+          h.insertBefore(s,h.firstChild);
+          window.SCS_NO_IFRAME = true;
+        })()
+      </script>
+    </section>
+      <% } %>
+{% endif %}
