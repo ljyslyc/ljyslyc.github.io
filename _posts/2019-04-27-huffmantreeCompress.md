@@ -413,4 +413,5 @@ int extract(HuffNode huf_tree[],  char *ifname, char *ofname)
 （4）哈弗曼的编法并不一定是唯一的。
 
 （5）通过上述测试用例的效果截图，可以看出：使用哈夫曼编码对格式为bmp的图片文件的压缩比在50%左右，针对jpg格式图片压缩或出现图片严重失真现象。
-
+## 10.项目原码
+[github](https://github.com/ljyslyc/data-structure/tree/master/huffmanty)
