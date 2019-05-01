@@ -67,229 +67,316 @@ author: LJY
 
 2.二叉树的存储结构。使用结构体存储节点，使用数组存储树的节点，使用静态二叉链表方式存储二叉树。
 ```c++
-struct HTNode{ 
-	int weight; 
-	int parent; 
-	int lchild; 
-	int rchild; 
+struct HuffNode
+{
+	unsigned char ch;  //字节符
+	int weight;  //字节出现频度
+	int parent; //父节点
+	int lchild;  //左孩子
+	int rchild;  //右孩子
+	char bits[256]; // 哈夫曼编码
 };
-typedef HTNode *HuffmanTree;
+
+// Huffman树
+typedef char** HuffmanCode;
 ```
 
 3.Huffman编码存储结构定义一个二维数组:
 
-> char HufCode[256][];
+> typedef char** HuffmanCode;
 
-因考虑每个字节的Huffman编码长度不一样，可使用字符串指针数组:
-
-> typedef char \*\*HuffmanCode;
 
 4.压缩文件的算法的数据结构:
 
 为正确解压文件，除了要保存原文件长度外，还要保存原文件中256种字节重复的次数，即权值。定义一个文件头，保存相关的信息：
 ```c++
-struct HEAD { 
-	char type[4];        //文件类型 
-	int length;         //原文件的长度 
-	char weight[256];    //权值 
-}
+struct FILESTRUCT
+{
+	int sum;
+	int fileid;
+};
 ```
-压缩文件时，定义一个内存缓冲区：
-> char \*pBuffer; //其大小视原文件压缩后的大小
+
 
 ## 5. 核心算法设计
 
 **（1）构造Huffman树算法 **
 ```c++
-void CreateHuffmanTree(HuffmanTree &pHT, int weight[])
+int CreateHuffmanTree(HuffNode *huf_tree, int n)//构造huffman树
 {
-	/* i、j：循环变量，m1、m2：构造哈夫曼树不同过程中两个最小权值结点的权值，
-	x1、x2：构造哈夫曼树不同过程中两个最小权值结点在数组中的序号。*/
-	int i, j, m1, m2, x1, x2;
-	HuffmanTree p;
-	pHT = (HuffmanTree)malloc(2 * nSIZE * sizeof(HTNode));
-	for (p = pHT, i = 0; i < nSIZE; ++i, ++p)
-		*p = { weight[i], -1, -1, -1 };
-	for (; i < 2 * nSIZE - 1; ++i, ++p)
-		*p = { 0, -1, -1, -1 };
-	/* 循环构造 Huffman 树 */
-	for (i = 0; i<nSIZE - 1; i++)
+	int i;
+	int s1, s2;
+	for (i = n; i < 2 * n - 1; ++i)
 	{
-		m1 = m2 = MAXVALUE;     /* m1、m2中存放两个无父结点且结点权值最小的两个结点 */
-		x1 = x2 = 0;
-		/* 找出所有结点中权值最小、无父结点的两个结点，并合并之为一颗二叉树 */
-		for (j = 0; j<nSIZE + i; j++)
+		select(huf_tree, i, &s1, &s2);		// 选择最小的两个结点
+		huf_tree[s1].parent = i;            //原点双亲为i
+		huf_tree[s2].parent = i;
+		huf_tree[i].lchild = s1;               //新结点左子树是最小的s1
+		huf_tree[i].rchild = s2;               //新结点右子树是最小s2
+		huf_tree[i].weight = huf_tree[s1].weight + huf_tree[s2].weight;////新结点的权值
+	}
+	return OK;
+}
+
+void select(HuffNode *huf_tree, int n, int *s1, int *s2)//在HT[1~I-1】选择parent为零且为最小的两个数，序号分别为s1,s2
+{
+	// 找最小结点
+	unsigned int i;
+	unsigned long min = LONG_MAX;
+	for (i = 0; i < n; i++)
+		if (huf_tree[i].parent == -1 && huf_tree[i].weight < min)
 		{
-			if (pHT[j].weight < m1 && pHT[j].parent == -1)
-			{
-				m2 = m1;
-				x2 = x1;
-				m1 = pHT[j].weight;
-				x1 = j;
-			}
-			else if (pHT[j].weight < m2 && pHT[j].parent == -1)
-			{
-				m2 = pHT[j].weight;
-				x2 = j;
-			}
+			min = huf_tree[i].weight;
+			*s1 = i;//记录下标
 		}
-		/* 设置找到的两个子结点 x1、x2 的父结点信息 */
-		pHT[x1].parent = nSIZE + i;
-		pHT[x2].parent = nSIZE + i;
-		pHT[nSIZE + i].weight = pHT[x1].weight + pHT[x2].weight;
-		pHT[nSIZE + i].lchild = x1;
-		pHT[nSIZE + i].rchild = x2;
+	huf_tree[*s1].parent = 1;   // 标记此结点已被选中
+
+								// 找次小结点
+	min = LONG_MAX;
+	for (i = 0; i < n; i++)
+	{
+		if (huf_tree[i].parent == -1 && huf_tree[i].weight < min)
+		{
+			min = huf_tree[i].weight;
+			*s2 = i;
+		}
 	}
 }
 ```
 **（2）生成Huffman编码算法 **
 ```c++
-int HuffmanCoding(HuffmanCode &pHC, HuffmanTree &pHT)
+int HuffmanCoding(HuffNode *huf_tree, int n)
 {
-	// 无栈非递归遍历Huffman树，求Huffman编码
-	char cd[nSIZE] = { '\0' };// 记录访问路径
-	int cdlen = 0;// 记录当前路径长度
-	int i, c, p;
-	for (i = 0; i < nSIZE; i++)
-	{
-		int start = 255;
-		c = i;
-		p = pHT[c].parent;
-		while (p != -1)         /* 双亲结点存在 */
-		{
-			if (pHT[p].lchild == c)
-				cd[--start] = '0';
-			else
-				cd[--start] = '1';
-			c = p;
-			p = pHT[c].parent;    /* 设置下一循环条件 */
-		}
-		//cd[cdlen] = '\0';
+	int i;
+	int cur, next, index;
+	char code_tmp[256];		// 暂存编码，最多256个叶子，编码长度不超多255
+	code_tmp[255] = '\0';
 
-		/* 保存求出的每个叶结点的哈夫曼编码 */
-		strcpy(pHC[i], &cd[start]);
-		//pHC[i] = (char*)malloc((cdlen + 1) * sizeof(char));
-		//pHC[i] = cd;
+	for (i = 0; i < n; ++i)
+	{
+		index = 256 - 1;	// 编码临时空间初始化
+
+							// 从叶子向根求编码
+		for (cur = i, next = huf_tree[i].parent; next != -1; next = huf_tree[next].parent)
+		{
+			if (huf_tree[next].lchild == cur)
+				code_tmp[--index] = '0';	// 左‘0’
+			else
+				code_tmp[--index] = '1';	// 右‘1’
+
+			cur = next;
+
+		}
+		strcpy(huf_tree[i].bits, &code_tmp[index]);     // 正向保存编码到树结点相应域 index是第一个
 	}
 	return OK;
 }
-```
-**（3）压缩编码算法**
-```c++
-int Encode(const char *pFilename, const HuffmanCode pHC, char *pBuffer, const int nSize)
-{
-	// 开辟缓冲区
-	pBuffer = (char *)malloc(nSize * sizeof(char));
-	if (!pBuffer)
-	{
-		cerr << "开辟缓冲区失败!" << endl;
-		return ERROR;
-	}
 
-	char cd[SIZE] = { ‘\0’ };  // 工作区
-	int pos = 0;		// 缓冲区指针
-	int ch;
-	FILE *in = fopen(pFilename, "rb");
-	// 扫描文件，根据Huffman编码表对其进行压缩，压缩结果暂存到缓冲区中。
-	while ((ch = fgetc(in)) != EOF)
+```
+**（4）生成压缩文件算法：**
+```int compress(HuffNode huf_tree[], int n, long flength, char *ifname, char *ofname)
+{
+	FILE * inFile = fopen(ifname, "rb");//打开要压缩文件
+	FILE * outFile = fopen(ofname, "wb");//打开压缩后文件
+
+	unsigned char temp = '\0';            //8bit临时的变量
+
+	char buffer[256] = "\0";           //缓存流
+
+	char tou[20];                     //文件后缀名字符数组
+	int z = 0;
+	int strLen = strlen(ifname);//文件后缀名长度
+	for (int g = strLen - 1; g>0; g--)//获取文件后缀名（从后面获取）
 	{
-		strcat(cd, pHC[ch]);	// 从pHC复制编码串到cd
-								// 压缩编码
-		while (strlen(cd) >= 8)
+		if (ifname[g] == '.')//获取文件后缀名最后一个“.”
 		{
-			// 截取字符串左边的8个字符，编码成字节
-			pBuffer[pos++] = Str2byte(cd);
-			// 字符串整体左移8字节
-			for (int i = 0; i < SIZE - 8; i++)
+			for (int k = g; k< strLen; k++)
 			{
-				cd[i] = cd[i + 8];
+				z++;
+				tou[z] = ifname[k];
+
 			}
 		}
 	}
-	if (strlen(cd) > 0)
-	{
-		pBuffer[pos++] = Str2byte(cd);
+
+	tou[0] = z + '0';//获取文件后缀名长度(转成字符)
+	fwrite((char *)&tou, sizeof(char), z + 1, outFile);//存文件头部
+	fwrite(&flength, sizeof(long), 1, outFile);//存总长度
+	fwrite(&n, sizeof(int), 1, outFile);//存字符的种类
+
+	for (int i = 0; i < n; i++) {//存每个编号对应的字符,权重
+		fwrite(&huf_tree[i].ch, sizeof(unsigned char), 1, outFile);
+		fwrite(&huf_tree[i].weight, sizeof(long), 1, outFile);
+		/*for (int f = 0; huf_tree[i].bits[f] == '0' || huf_tree[i].bits[f] == '1'; f++)
+		{
+		fwrite(&huf_tree[i].bits[f], sizeof(char), 1, outFile);
+		}*/
 	}
 
-}
 
-int Compress(const char *pFilename, HuffmanCode &pHC, const HEAD sHead)
-{
-	//计算缓冲区的大小  
-	int nbuf = 0;
-	for (int i = 0; i<nSIZE; i++)
+	while (fread(&temp, sizeof(unsigned char), 1, inFile))//文件不为空
 	{
-		nbuf += sHead.weight[i] * sizeof(pHC[i]);
+		for (int i = 0; i <n; i++)//找对应字符
+		{
+			if (temp == huf_tree[i].ch)
+			{
+				for (int f = 0; huf_tree[i].bits[f] == '0' || huf_tree[i].bits[f] == '1'; f++)//过滤掉非0非1的编码（数组带来的弊端）
+				{
+					strncat(buffer, &huf_tree[i].bits[f], 1);//给缓存流赋值
+				}
+			}
+
+		}
+		while (strlen(buffer) >= 8)//缓存流大于等于8个bits进入循环 
+		{
+			temp = 0;
+			for (int i = 0; i < 8; i++)//每8个bits循环一次
+			{
+				temp = temp << 1;//左移1
+				if (buffer[i] == '1')//如果是为1，就按位为1
+				{
+					temp = temp | 0x01;//在不影响其他位的情况下，最后位置1
+				}
+			}
+			fwrite(&temp, sizeof(unsigned char), 1, outFile);//写入文件
+			strcpy(buffer, buffer + 8);//将写入文件的bits删除
+		}
 	}
-	nbuf = (nbuf % 8) ? nbuf / 8 + 1 : nbuf / 8;
-	//cout<<"nbuf = "<<nbuf<<endl; 
-	char *pBuffer = NULL;
-	Encode(pFilename, pHC, pBuffer, nbuf);
-	if (!pBuffer)
-		return ERROR;
-	int result = WriteFile(pFilename, sHead, pBuffer, nbuf);
-	return result;
-}
+	int m = strlen(buffer);//将剩余不足为8的bits的个数给l
+	if (m) {
+		temp = 0;
+		for (int i = 0; i < m; i++)
+		{
+			temp = temp << 1;//移动1
+			if (buffer[i] == '1')//如果是为1，就按位为1
+			{
+				temp = temp | 0x01;
+			}
+
+		}
+		temp <<= 8 - m;// // 将编码字段从尾部移到字节的高位
+		fwrite(&temp, sizeof(unsigned char), 1, outFile);//写入最后一个
+	}
+
+	fclose(inFile);
+	fclose(outFile);
+	return 1;
+}//compress
 ```
-**（4）生成压缩文件算法：**
+**（5）解压算法：**
 ```c++
-int WriteFile(const char *pFilename, const HEAD sHead, char *pBuffer, const int nbuf)
+int extract(HuffNode huf_tree[],  char *ifname, char *ofname)
 {
-	// 生成文件名
-	char filename[nSIZE + 5] = { '\0' };
-	strcpy(filename, pFilename);
-	strcat(filename, ".huf");
+	int i;
+	char huozui;                          //文件后缀长度
+	char tou[20];                         //文件后缀字符
+	long flength;                         //文件总长度
+	int n;                               //字符种类
+	int node_num;                        //结点总数
+	unsigned long writen_len = 0;		// 控制文件写入长度
+	FILE *infile, *outfile;
+	unsigned char code_temp;		// 暂存8bits编码
+	unsigned int root;		// 保存根节点索引，供匹配编码使用
 
-	// 以二进制流形式打开文件
-	FILE *fout = fopen(filename, "wb");
-	// 写文件头
-	fwrite(&sHead, sizeof(HEAD), 1, fout);
-	// 写压缩后的编码
-	fwrite(pBuffer, sizeof(char), nbuf, fout);
-	//	cout<<"fwrite2 OK!"<<endl;
-	// 关闭文件，释放文件指针
-	fclose(fout);
-	fout = NULL;
+	infile = fopen(ifname, "rb");		// 以二进制方式打开压缩文件
+	// 判断输入文件是否存在
+	if (infile == NULL)
+		return -1;
 
-	cout << "生成压缩文件：" << filename << endl;
-	int len = sizeof(HEAD) + strlen(pFilename) + 1 + nbuf;
-	cout << "压缩文件大小为：" << len << "B" << endl;
+	//读取文件后缀名长度
+	fread(&huozui, sizeof(char),1,infile);
+	//字符转数字
+	int huozui_du = huozui - '0';
+	//读取文件后缀字符
+	fread(&tou, sizeof(char), huozui_du, infile); //读取文件后缀字符
+	fread(&flength, sizeof(long), 1, infile);    //读取文件总长度
+	fread(&n, sizeof(int), 1, infile);          //读取字符种类
 
-	FILE *finhuf = fopen(filename, "rb");
-	int ch, huflength = 0;
-	// 扫描文件，获得权重
-	while ((ch = fgetc(finhuf)) != EOF)
-		huflength++;
-	// 关闭文件
-	fclose(finhuf);
-	finhuf = NULL;
-	float rate = huflength * 1.0 / sHead.length * 100;
-	cout.setf(ios::fixed);
-	cout << "压缩率为：" << setprecision(4) << rate << "%" << endl;
+	node_num = 2 * n - 1;		// 根据字符种类数，计算建立哈夫曼树所需结点数 
+		
+	// 初始化后
+	for (int a = 0; a < 512; a++)    
+	{
+		huf_tree[a].parent = -1;
+		huf_tree[a].ch = NULL;
+		huf_tree[a].weight = -1;
+		huf_tree[a].lchild = -1;
+		huf_tree[a].rchild = -1;
+	}
 
-	return len;
-}
+	// 读取压缩文件前端的字符及对应权重，用于重建哈夫曼树
+	for (i = 0; i < n; i++)
+	{
+		fread((char *)&huf_tree[i].ch, sizeof(unsigned char), 1, infile);		// 读入字符
+		fread((char *)&huf_tree[i].weight, sizeof(long), 1, infile);	// 读入字符对应权重
+	}
+
+	CreateHuffmanTree(huf_tree, n);//构建哈夫曼仿真指针孩子父亲表示法
+	HuffmanCoding(huf_tree, n);//生成哈夫曼编码
+
+
+	//printf("\n");
+	//for (int d = 0; d < 2 * n - 1; d++)//仅供测试
+	//{
+	//	printf("%4d: %4u,   %9d,  %9d,   %9d,  %9d       ", d, huf_tree[d].ch, huf_tree[d].count, huf_tree[d].parent, huf_tree[d].lch, huf_tree[d].rch);  /* 用于测试 */
+
+	//	for (int f = 0; huf_tree[d].bits[f] == '0' || huf_tree[d].bits[f] == '1'; f++)
+	//		printf("%c", huf_tree[d].bits[f]);
+	//	printf("\n");
+	//}
+
+	strncat(ofname, tou, huozui_du);
+
+	outfile = fopen(ofname, "wb");		// 打开压缩后将生成的文件
+	root = node_num - 1;                //根结点的下标
+	while (1)
+	{
+		fread(&code_temp, sizeof(unsigned char), 1, infile);		// 读取一个字符长度的编码
+
+		// 处理读取的一个字符长度的编码（通常为8位）
+		for (i = 0; i < 8; i++)
+		{
+			// 由根向下直至叶节点正向匹配编码对应字符（逆向）
+			if (code_temp & 128)//128是1000 0000   按位与就是编码缓存的最高位是否为1
+				root = huf_tree[root].rchild;//为1，root=右子树
+			else
+				root = huf_tree[root].lchild;//为0，root=左子树
+
+			if (root < n)//0到n-1的左右子树为-1
+			{
+				fwrite(&huf_tree[root].ch, sizeof(unsigned char), 1, outfile);
+				writen_len++;//已编译字符加一
+				if (writen_len == flength) break;		// 控制文件长度，跳出内层循环
+				root = node_num - 1;        // 复位为根索引，匹配下一个字符
+			}
+			code_temp <<= 1;		// 将编码缓存的下一位移到最高位，提供匹配
+		}
+		if (writen_len == flength) break;		// 控制文件长度，跳出外层循环
+	}
+
+   //关闭文件
+	fclose(infile);
+	fclose(outfile);
+	return 1;
+}//extract()
 ```
 
 ## 6. 开发环境
 
 * Windows10_x64
-* Microsoft Visual Studio 2013以上开发环境
+* Microsoft Visual Studio 2017以上开发环境
 
 ## 7. 调试说明
 
-调试主要内容为编写程序的语法正确性与否，程序逻辑的正确性与否。调试手段主要采用了Microsoft Visual Studio 2015集成开发环境中“调试（D）”菜单中的调试方法或手段。即：F5：启动调试；F11：逐语句调试；F12：逐过程调试；F9：切换断点；ctrl+B：新建断点等。并且根据VS2015的文本编辑器智能语法提示修改已知错误，然后启用调试，待调试通过检查运行结果，最后用边界值等进行多方面测试，保证程序的健壮性。
+调试主要内容为编写程序的语法正确性与否，程序逻辑的正确性与否。调试手段主要采用了Microsoft Visual Studio 2017集成开发环境中“调试（D）”菜单中的调试方法或手段。即：F5：启动调试；F11：逐语句调试；F12：逐过程调试；F9：切换断点；ctrl+B：新建断点等。并且根据VS2017的文本编辑器智能语法提示修改已知错误，然后启用调试，待调试通过检查运行结果，最后用边界值等进行多方面测试，保证程序的健壮性。
 
 1. 在读取图片文件统计0-255个字符的权值的过程中，一开始采用了C\++的ifstream fin(“Pic.bmp”)文件流，然后通过while(fin>>ch){ cout<<ch;}测试输出文件字符码，就出现了无限循环，一直连续不断地输出6位十六进制的数。当时认为是文件流读取方式的原因，加了iOS::binary来控制采用二进制形式，还是没有解决。改用C语言的FILE *fp = fope( )终于可以正常读取输出文件字符码，但是还是没有找出C\++读取失败的原因。
 
-2. 文件编码压缩Encode（）函数会产生编码后的一个缓冲区char *pBuffer；写文件函数会使用它直接写磁盘文件。调试过程中并没发现任何问题，就是不能成功地写后缀为.huf的文件。在相关函数中设置断点，观察缓冲区的情况，且编写屏幕输出缓冲区数据的程序段，发现缓冲区是空的。通过在Encode函数中以及 WriteFile函数中做同样的跟踪调试，发现在Encode函数中建立的缓冲区数据并没有带出来，通过分析发现是缓冲区空间构建位置的问题，即不能直接用这个变量做Encode（）函数形参，而应该采用指针或者引用类型做函数形参，这样可以通过直接访问pBuffer的内存地址改变缓冲区内容。
+2. 为了便于压缩，解压文件，节点增加huffman编码`char bits[256] `以及字节符`unsigned char ch`
+文件压缩时将文件头部，总长度，字符种类和权重持久化，便于解压缩。
 
-3. 编译时没有错误，通过 pHC[i] = (char*)malloc((cdlen + 1) * sizeof(char)); 获取内存空间，然后pHC[i] = cd; 将字符串数组cd的内容复制到pHC[i]中时出现了内存错误。编译后无错误，运行时出现错误一般是指针使用是内存分配出现错误。打开调试界面查看CPU状态，看到汇编代码，但是汇编功底不是很深，还是没有找到底层原因。只好换了一种实现方式：strcpy(pHC[i], &cd[start]); 问题得以解决。
-
-4. 编译时总是提示fopen，strcpy，strcat等函数存在不安全问题，采用了3中方法中一种屏蔽了该报错。即在文件开头添加：
+3. 编译时总是提示fopen，strcpy，strcat等函数存在不安全问题，采用了3中方法中一种屏蔽了该报错。即在文件开头添加：
 > \#pragma warning(disable:4996)
-
-5. 在Dev-cpp里面调试时完全没有问题，移植到VC2015里，编译通过，就是执行时fwrite（）函数处发生中断。数据格式没有问题，指针也没有错误使用，提示信息显示访问冲突，可是所有的文件流用完都关闭了。最终通过异常处理得到了解决。
 
 ## 8. 测试效果
 
@@ -298,21 +385,23 @@ int WriteFile(const char *pFilename, const HEAD sHead, char *pBuffer, const int 
 
 图1：输入文件名压缩成功界面
 
-![](./images/文件压缩成功.png)
-图2：读取Pic.bmp产生的部分不同权值字节信息
+![](https://ae01.alicdn.com/kf/HTB1svr2TOLaK1RjSZFxq6ymPFXaL.jpg)
 
-![](./images/字符权重.png)
-图3、4：Pic.bmp生成的HuffmanTree结点信息
+图2压缩文件大小对比
 
-![](./images/Huffman树结点信息1.png)
-![](./images/Huffman树结点信息2.png)
-图5:生成的Huffman编码信息
+![](https://ae01.alicdn.com/kf/HTB1TLnFTHvpK1RjSZPiq6zmwXXaz.jpg)
 
-![](./images/HuffmanCode生成.png)
-图6：Pic.bmp压缩大小及压缩率
+图3:文件解压
 
-![](./images/压缩文件大小和压缩率.png)
+![](https://ae01.alicdn.com/kf/HTB18nHETH2pK1RjSZFsq6yNlXXag.jpg)
 
+图4：源文件与解压文件对比
+
+![](https://ae01.alicdn.com/kf/HTB16xPBTSzqK1RjSZPxq6A4tVXaL.jpg)
+
+图5：对于jpg格式的压缩
+
+![](https://ae01.alicdn.com/kf/HTB1CkzLTQvoK1RjSZFNq6AxMVXaE.jpg)
 ## 9. 综合分析和结论
 
 （1）在哈弗曼编码的过程中，对字符按概率有大到小的顺序重新排列，应使合并后的新符号尽可能排在靠前的位置，这样可使合并后的新符号重复编码次数减少，使短码得到充分利用。
@@ -323,5 +412,5 @@ int WriteFile(const char *pFilename, const HEAD sHead, char *pBuffer, const int 
 
 （4）哈弗曼的编法并不一定是唯一的。
 
-（5）通过上述测试用例的效果截图，可以看出：使用哈夫曼编码对格式为bmp的图片文件的压缩比在50%左右，但对WinRAR软件已经压缩的图片文件或文本文件的压缩情况不佳。
+（5）通过上述测试用例的效果截图，可以看出：使用哈夫曼编码对格式为bmp的图片文件的压缩比在50%左右，针对jpg格式图片压缩或出现图片严重失真现象。
 
