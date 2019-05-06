@@ -52,6 +52,9 @@ kramdown:
 #图床地址
 Picture_bed : https://www.superbed.cn/
 
+plugins:
+  - jekyll-sitemap
+  
 # url
 category_dir: category/
 tag_dir: tag/
