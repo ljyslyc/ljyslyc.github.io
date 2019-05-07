@@ -27,6 +27,7 @@ type: page
 
 ## 关于本站
 
+今后将陆续把笔记总结到博客里。
 **若您想使用这个 jekyll 博客主题，请访问：[https://github.com/ljyslyc/ljyslyc.github.io](https://github.com/ljyslyc/ljyslyc.github.io)**
 
 ~欢迎使用~
