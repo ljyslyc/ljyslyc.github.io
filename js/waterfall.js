@@ -14,12 +14,12 @@
      */
   var demoContent = [
     {
-      demo_link: 'https://codepen.io/LiuJiaYing/pen/ROqdKv',
-      img_link: 'https://ooo.0o0.ooo/2016/11/24/5836d81f48cd2.png',
-      code_link: 'https://codepen.io/LiuJiaYing/pen/ROqdKv',
-      title: 'Fisher-Yates 生命游戏',
+      demo_link: 'https://codepen.io/LiuJiaYing/pen/XwJvPo',
+      img_link: 'https://ae01.alicdn.com/kf/HTB1nS85UNjaK1RjSZKzq6xVwXXal.jpg',
+      code_link: 'https://codepen.io/LiuJiaYing/pen/XwJvPo',
+      title: 'the Game of Life 生命游戏',
       core_tech: 'JavaScript',
-      description: 'Fisher-Yates 生命游戏演示动画。算法详情见 <a href ="https://gaohaoyang.github.io/2016/10/16/shuffle-algorithm/">这里</a>。'
+      description: 'the Game of Life 生命游戏演示动画。算法详情见 <a href ="https://gaohaoyang.github.io/2016/10/16/shuffle-algorithm/">这里</a>。'
     },
     {
       demo_link: 'https://codepen.io/LiuJiaYing/pen/ROqdKv',
