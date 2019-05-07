@@ -19,7 +19,7 @@
       code_link: 'https://codepen.io/LiuJiaYing/pen/XwJvPo',
       title: 'the Game of Life 生命游戏',
       core_tech: 'JavaScript',
-      description: 'the Game of Life 生命游戏演示动画。算法详情见 <a href ="https://gaohaoyang.github.io/2016/10/16/shuffle-algorithm/">这里</a>。'
+      description: 'the Game of Life 生命游戏演示动画。算法详情见 <a href ="https://blog.ljyslyc.club/2019/04/25/life-game/">这里</a>。'
     },
     {
       demo_link: 'https://codepen.io/LiuJiaYing/pen/ROqdKv',
