@@ -9,6 +9,14 @@ type: page
 * content
 {:toc}
 
+## 书籍 
+
+#### [Deep Learning](http://www.deeplearningbook.org/)
+An MIT Press book
+Ian Goodfellow and Yoshua Bengio and Aaron Courville
+
+#### 
+
 ## 工具
 
 *[CodePen 前端demo效果制作](https://codepen.io/pens/)
