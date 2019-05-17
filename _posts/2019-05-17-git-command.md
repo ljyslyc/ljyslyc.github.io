@@ -4,7 +4,7 @@ title: "Git常用命令"
 date: 2019-05-17 15:14:54
 categories: git
 tags: git
-excerpt: Scenic Area Information Management System
+excerpt: Git常用命令总结如下
 mathjax: true
 author: LJY
 ---
