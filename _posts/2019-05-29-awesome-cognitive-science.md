@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "awesome-cognitive-science"
+title: "awesome cognitive science"
 date: 2019-05-29 15:14:54
 categories: science
 tags: science
