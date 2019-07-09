@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "记录下word的一些排版技巧"
-date: 2020-6-12
+date: 2019-06-12
 categories: MarkDown
 tags: MarkDown
 excerpt: 最近一直在使用word排版，感觉有必要总结下word的排版技巧(未完待续)
