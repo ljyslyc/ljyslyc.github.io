@@ -17,7 +17,7 @@ author: LJY
 [原文链接](https://www.jiqizhixin.com/articles/2019-01-15-11)
 
 参考资料 https://juejin.im/post/5cecdbb75188252db706f4e9
-### 1.散点图（Scatter plot
+### 1.散点图（Scatter plot）
 -----
 
 散点图是用于研究两个变量之间关系的经典的和基本的图表。 如果数据中有多个组，则可能需要以不同颜色可视化每个组。 在 matplotlib 中，您可以使用 plt.scatterplot（） 方便地执行此操作。
