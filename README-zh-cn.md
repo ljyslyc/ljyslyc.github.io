@@ -291,11 +291,9 @@ Configuration file: E:/GitWorkSpace/blog/_config.yml
 
 若正在使用全局代理，可能会报错502，关闭全局代理即可。
 
-### 6. 发布到 GitHub
+### 本地运行
 
-没什么问题，推送到自己的博客仓库即可。
-
-## Update Log
+jekyll serve --port 4040 --incremental
 
 ## License
 
