@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "本篇将记录我暑期培训的总结"
+title: "推荐系统实战"
 date: 2019-07-08
-categories: matlab python
-tags: python matlab
+categories: RS Python
+tags: RS Python
 excerpt: 一直以来想把自己掌握的数模知识总结一下，趁着这次暑期培训 do it！
 mathjax: true
 author: LJY

@@ -2,7 +2,7 @@
 layout: post
 title:  "判断两个数组是否相似 (arraysSimilar)"
 date:   2018-04-06 15:14:54
-categories: JavaScript
+categories: Web
 tags: JavaScript Array 算法 慕课网
 ---
 

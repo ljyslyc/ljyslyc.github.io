@@ -2,8 +2,8 @@
 layout: post
 title: "maven到底是个啥玩意!"
 date: 2019-04-24 15:14:54
-categories: maven
-tags: maven
+categories: Maven
+tags: Maven
 excerpt: 简述maven
 mathjax: true
 ---

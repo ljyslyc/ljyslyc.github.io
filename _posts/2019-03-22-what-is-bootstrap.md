@@ -2,8 +2,8 @@
 layout: post
 title: "Bootstrap简介(转）"
 date: 2019-03-22 16:01:54
-categories: html css javascript
-tags: html css javascript
+categories: Web
+tags: HTML CSS JavaScript
 excerpt: Bootstrap是一套易用、优雅、灵活、可扩展的前端工具集。
 mathjax:
 author: LJY

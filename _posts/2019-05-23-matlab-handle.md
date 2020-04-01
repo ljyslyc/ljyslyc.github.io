@@ -2,8 +2,8 @@
 layout: post
 title: "Matlab中的函数句柄"
 date: 2019-05-23 11:14:54
-categories: matlab
-tags: matlab
+categories: Matlab
+tags: Matlab
 excerpt: 简述
 mathjax: true
 author: LJY

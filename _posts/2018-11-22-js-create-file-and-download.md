@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "使用 JavaScript 创建并下载文件"
-categories: JavaScript
+categories: Web
 tags:  文件 下载 JavaScript
 author: LJY
 ---

@@ -2,8 +2,8 @@
 layout: post
 title: "huffman算法实现图片压缩"
 date: 2019-04-27 18:32:54
-categories: c++
-tags: c++ 算法
+categories: C++
+tags: C++
 excerpt: 使用C++、文件操作和Huffman算法实现“图片压缩程序
 mathjax: true
 author: LJY

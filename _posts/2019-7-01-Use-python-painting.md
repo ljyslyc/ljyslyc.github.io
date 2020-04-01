@@ -2,8 +2,8 @@
 layout: post
 title: "使用pyhon可视化的一些操作"
 date: 2019-07-01
-categories: python
-tags: python
+categories: Python
+tags: Python
 excerpt: 暑期进行数模培训，总结下python的一些可视化操作,并附上Matplotlib可视化最有价值的50个图表（附完整Python源代码）
 mathjax: true
 author: LJY

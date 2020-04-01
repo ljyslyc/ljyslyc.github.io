@@ -2,7 +2,7 @@
 layout: post
 title:  "JavaScript 中的 this"
 date:   2018-06-12 14:06:05
-categories: JavaScript
+categories: Web
 tags: JavaScript 慕课网 this ife
 ---
 

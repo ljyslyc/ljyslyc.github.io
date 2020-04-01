@@ -2,7 +2,7 @@
 layout: post
 title:  "JavaScript 面向对象"
 date:   2018-06-15 14:06:05
-categories: JavaScript
+categories: Web
 tags: JavaScript 面向对象 慕课网 ife
 ---
 
