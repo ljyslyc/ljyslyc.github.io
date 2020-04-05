@@ -14,7 +14,7 @@ author: LJY
 
 Bootstrap是一套易用、优雅、灵活、可扩展的前端工具集。
 
-*   简单灵活可用于架构流行的用户界面和交互接口的html、css、             javascript工具集。
+*   简单灵活可用于架构流行的用户界面和交互接口的html、css、javascript工具集。
 
 *   基于html5、css3的bootstrap，具有大量的诱人特性：友好的学习     曲线，卓越的兼容性，响应式设计，12列格网，样式向导文档。
 
