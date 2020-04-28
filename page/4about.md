@@ -22,7 +22,6 @@ type: page
 * GitHub：[ljyslyc](https://github.com/ljyslyc)
 * email：[ljysly@yeah.net](http://)
 * [Weibo](http://weibo.com/5561024899)
-* [知乎](https://www.zhihu.com/people/jia-er-lu-shi-di-yu-pao-xiao-56)
 
 ## 关于本站
 
